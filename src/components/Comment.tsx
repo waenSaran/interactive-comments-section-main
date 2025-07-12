@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import type { UserType } from './Profile';
 import TextAreaInputField from './TextAreaInputField';
+import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 type CommentProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> &
   UserType & {
@@ -23,7 +25,10 @@ function Comment({
     setComment('');
   };
   return (
-    <div className={`bg-white rounded-md flex p-5 gap-5 ` + className} {...wrapperProps}>
+    <div
+      className={twMerge(clsx('bg-white rounded-md flex p-5 gap-5', className))}
+      {...wrapperProps}
+    >
       <img
         className='h-fit'
         src={`/src/assets${image.png}`}

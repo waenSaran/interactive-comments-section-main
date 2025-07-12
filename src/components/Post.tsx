@@ -7,6 +7,8 @@ import { useState } from 'react';
 import TextAreaInputField from './TextAreaInputField';
 import Column from './Column';
 import Modal from './Modal';
+import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 export type PostType = {
   id: number;
@@ -24,13 +26,17 @@ export type PostProps = PostType & {
   onConfirmDelete?: (id: number) => void;
 };
 
-function ReplyButton({ onReply }: { onReply: () => void }) {
+type ReplyButtonProps = React.HTMLAttributes<HTMLButtonElement> & {
+  onReply: () => void;
+};
+function ReplyButton({ onReply, className, ...props }: ReplyButtonProps) {
   return (
     <Button
       buttonType='text'
-      className='ml-auto'
+      className={twMerge(clsx('ml-auto',className))}
       iconSrc='src/assets/images/icon-reply.svg'
       onClick={onReply}
+      {...props}
     >
       <span className='font-semibold text-purple-main'>Reply</span>
     </Button>
@@ -69,15 +75,18 @@ function Post({
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [content, setContent] = useState<string>(defaultContent);
+
   const handleOnEdit = () => {
     setIsEditing(true);
     const replyTo = replyingTo ? `@${replyingTo} ` : '';
     setContent(replyTo + content);
   };
+
   const handleOnUpdateComment = () => {
     setContent(content.replaceAll(`@${replyingTo} `, ''));
     setIsEditing(false);
   };
+
   const handleOnDelete = () => {
     setIsOpenModal(true);
   };
@@ -88,8 +97,8 @@ function Post({
   };
 
   return (
-    <div className='bg-white rounded-md flex p-5 gap-5'>
-      <Vote score={score} />
+    <div className='bg-white rounded-md p-5 gap-5 flex'>
+      <Vote score={score} className='hidden sm:block' />
       <div className='flex flex-col gap-3 w-full'>
         <div className='header flex h-fit gap-5'>
           <Profile {...user} />
@@ -97,7 +106,7 @@ function Post({
           {isCurrentUser ? (
             <AuthActionButtons onEdit={handleOnEdit} onDelete={handleOnDelete} />
           ) : (
-            <ReplyButton onReply={onReply} />
+            <ReplyButton onReply={onReply} className='' />
           )}
         </div>
         {isEditing ? (
@@ -118,6 +127,7 @@ function Post({
             <span className='content text-gray-500'>{content}</span>
           </div>
         )}
+        <Vote score={score} className='flex flex-row w-fit gap-3 sm:hidden' />
       </div>
       <Modal
         isOpen={isOpenModal}

@@ -26,14 +26,14 @@ function Modal({ isOpen = false, setIsOpen, onConfirmDelete }: ModalProps) {
               <div className='flex w-full gap-3'>
                 <Button
                   buttonType='contain'
-                  className='w-full justify-center !bg-gray-500 text-xs font-semibold text-white'
+                  className='w-full justify-center bg-gray-500 text-xs font-semibold text-white'
                   onClick={() => setIsOpen(false)}
                 >
                   {'No, Cancel'.toUpperCase()}
                 </Button>
                 <Button
                   buttonType='contain'
-                  className='w-full justify-center !bg-error-main text-xs font-semibold text-white'
+                  className='w-full justify-center bg-error-main text-xs font-semibold text-white'
                   onClick={onConfirmDelete}
                 >
                   {'Yes, delete'.toUpperCase()}
