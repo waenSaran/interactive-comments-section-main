@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { UserType } from './Profile';
 import Profile from './Profile';
 import Vote from './Vote';
@@ -11,6 +12,7 @@ type PostProps = {
 };
 
 function Post({ id, content, createdAt, score, user }: PostProps) {
+
   return (
     <div className='bg-white rounded-md flex p-5 gap-5'>
       <Vote score={score} />
