@@ -2,9 +2,10 @@ import { useState, type FormEvent } from 'react';
 import type { UserType } from './Profile';
 
 type CommentProps = UserType & {
+  type?: 'reply' | 'comment';
   onComment: (value: string) => void;
 };
-function Comment({ image, onComment }: CommentProps) {
+function Comment({ image, type='comment', onComment }: CommentProps) {
     const [comment,setComment] = useState<string>('');
   const handleSubmit = () => {
     onComment(comment);
@@ -30,7 +31,7 @@ function Comment({ image, onComment }: CommentProps) {
           className='flex items-center bg-purple-main px-5 py-2 rounded-md h-fit cursor-pointer hover:bg-indigo-400'
           onClick={handleSubmit}
         >
-          <span className='text-white font-semibold text-xs'>SEND</span>
+          <span className='text-white font-semibold text-xs'>{type === 'reply' ? 'REPLY' : 'SEND'}</span>
         </button>
     </div>
   );
