@@ -37,10 +37,34 @@ function Posts({ posts, setPosts }: PostsProps) {
     setShowReplyBox(0);
   };
 
+  const handleOnConfirmDelete = (id: number) => {
+    const modifiedPosts: PostType[] = posts
+      .map((p): PostType | null => {
+        // If it's a top-level comment to be deleted, return null
+        if (p.id === id) return null;
+
+        // If the comment to be deleted is a reply
+        if (Array.isArray(p.replies)) {
+          const newReplies = p.replies.filter((r) => r.id !== id);
+          return { ...p, replies: newReplies };
+        }
+
+        return p;
+      })
+      .filter((p): p is PostType => p !== null); // <- type guard
+
+    setPosts(modifiedPosts);
+  };
+
   return posts.map((post) => {
     return (
       <Column key={`thread-${post.id}`} gap={5}>
-        <Post key={`post-${post.id}`} {...post} onReply={() => handleOnReply(post.id)} />
+        <Post
+          key={`post-${post.id}`}
+          {...post}
+          onReply={() => handleOnReply(post.id)}
+          onConfirmDelete={handleOnConfirmDelete}
+        />
         {post.replies && post.replies.length > 0 && (
           <Column
             key={`reply-container-${post.id}`}
@@ -49,7 +73,11 @@ function Posts({ posts, setPosts }: PostsProps) {
           >
             {post.replies.map((item) => (
               <Column gap={2} key={`reply-${post.id}-${item.id}`}>
-                <Post {...item} onReply={() => handleOnReply(item.id)} />
+                <Post
+                  {...item}
+                  onReply={() => handleOnReply(item.id)}
+                  onConfirmDelete={handleOnConfirmDelete}
+                />
                 {showReplyBox === item.id && (
                   <Comment
                     replyTo={item.user.username}

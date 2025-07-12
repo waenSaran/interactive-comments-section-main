@@ -6,6 +6,7 @@ import Button from './Button';
 import { useState } from 'react';
 import TextAreaInputField from './TextAreaInputField';
 import Column from './Column';
+import Modal from './Modal';
 
 export type PostType = {
   id: number;
@@ -20,6 +21,7 @@ export type PostType = {
 export type PostProps = PostType & {
   onReply?: () => void;
   onUpdateComment?: (value: string) => void;
+  onConfirmDelete?: (id: number) => void;
 };
 
 function ReplyButton({ onReply }: { onReply: () => void }) {
@@ -61,9 +63,11 @@ function Post({
   score,
   user,
   onReply = () => {},
+  onConfirmDelete = () => {},
 }: PostProps) {
   const isCurrentUser = mockData.currentUser.username === user.username;
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [content, setContent] = useState<string>(defaultContent);
   const handleOnEdit = () => {
     setIsEditing(true);
@@ -71,10 +75,18 @@ function Post({
     setContent(replyTo + content);
   };
   const handleOnUpdateComment = () => {
-    setContent(content.replaceAll(`@${replyingTo} `, ''))
+    setContent(content.replaceAll(`@${replyingTo} `, ''));
     setIsEditing(false);
   };
-  const handleOnDelete = () => {};
+  const handleOnDelete = () => {
+    setIsOpenModal(true);
+  };
+
+  const handleOnConfirmDelete = () => {
+    onConfirmDelete(id);
+    setIsOpenModal(false);
+  };
+
   return (
     <div className='bg-white rounded-md flex p-5 gap-5'>
       <Vote score={score} />
@@ -107,6 +119,11 @@ function Post({
           </div>
         )}
       </div>
+      <Modal
+        isOpen={isOpenModal}
+        setIsOpen={setIsOpenModal}
+        onConfirmDelete={handleOnConfirmDelete}
+      />
     </div>
   );
 }
