@@ -2,11 +2,15 @@
 
 @theme {
   --color-purple-main: hsl(238, 40%, 52%);
-  --color-purple-secondary: var(--color-purple-50);
+  --color-purple-secondary: #f5f6f9;
   --color-error-main: hsl(358, 79%, 66%);
   --color-error-secondary: hsl(357, 100%, 86%);
 }
 
 :root {
   background: var(--color-purple-secondary);
+}
+
+body {
+    margin: 3rem 0;
 }
