@@ -68,7 +68,7 @@ function Posts({ posts, setPosts }: PostsProps) {
         {post.replies && post.replies.length > 0 && (
           <Column
             key={`reply-container-${post.id}`}
-            className='reply border-l-1 border-gray-200 ml-8 pl-8'
+            className='reply border-l-1 border-gray-200 pl-4 sm:ml-8 sm:pl-8'
             gap={5}
           >
             {post.replies.map((item) => (
@@ -81,7 +81,7 @@ function Posts({ posts, setPosts }: PostsProps) {
                 {showReplyBox === item.id && (
                   <Comment
                     replyTo={item.user.username}
-                    type='reply'
+                    label='reply'
                     onComment={(value) => handleSubmitReply(post.id, value, item.user.username)}
                     {...currentUser}
                   />
@@ -94,7 +94,7 @@ function Posts({ posts, setPosts }: PostsProps) {
           <Comment
             className='mt-[-14px]'
             replyTo={post.user.username}
-            type='reply'
+            label='reply'
             onComment={(value) => handleSubmitReply(post.id, value, post.user.username)}
             {...currentUser}
           />

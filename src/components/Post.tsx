@@ -33,7 +33,7 @@ function ReplyButton({ onReply, className, ...props }: ReplyButtonProps) {
   return (
     <Button
       buttonType='text'
-      className={twMerge(clsx('ml-auto',className))}
+      className={twMerge(clsx('ml-auto items-baseline', className))}
       iconSrc='src/assets/images/icon-reply.svg'
       onClick={onReply}
       {...props}
@@ -43,14 +43,14 @@ function ReplyButton({ onReply, className, ...props }: ReplyButtonProps) {
   );
 }
 
-type AuthActionButtonsProps = {
+type AuthActionButtonsProps = React.HTMLAttributes<HTMLDivElement> & {
   onEdit: () => void;
   onDelete: () => void;
 };
 
-function AuthActionButtons({ onEdit, onDelete }: AuthActionButtonsProps) {
+function AuthActionButtons({ onEdit, onDelete, className, ...props }: AuthActionButtonsProps) {
   return (
-    <div className='ml-auto flex gap-5'>
+    <div className={twMerge(clsx('ml-auto flex gap-5', className))} {...props}>
       <Button buttonType='text' iconSrc='src/assets/images/icon-delete.svg' onClick={onDelete}>
         <span className='font-semibold text-error-main'>Delete</span>
       </Button>
@@ -102,11 +102,15 @@ function Post({
       <div className='flex flex-col gap-3 w-full'>
         <div className='header flex h-fit gap-5'>
           <Profile {...user} />
-          <span className='text-gray-400'>{createdAt}</span>
+          <span className='text-gray-400 max-w-32'>{createdAt}</span>
           {isCurrentUser ? (
-            <AuthActionButtons onEdit={handleOnEdit} onDelete={handleOnDelete} />
+            <AuthActionButtons
+              onEdit={handleOnEdit}
+              onDelete={handleOnDelete}
+              className='hidden sm:flex'
+            />
           ) : (
-            <ReplyButton onReply={onReply} className='' />
+            <ReplyButton onReply={onReply} className='hidden sm:flex' />
           )}
         </div>
         {isEditing ? (
@@ -127,7 +131,14 @@ function Post({
             <span className='content text-gray-500'>{content}</span>
           </div>
         )}
-        <Vote score={score} className='flex flex-row w-fit gap-3 sm:hidden' />
+        <div className='flex items-center sm:hidden'>
+          <Vote score={score} className='flex flex-row w-fit gap-3' />
+          {isCurrentUser ? (
+            <AuthActionButtons onEdit={handleOnEdit} onDelete={handleOnDelete} />
+          ) : (
+            <ReplyButton onReply={onReply} className='flex' />
+          )}
+        </div>
       </div>
       <Modal
         isOpen={isOpenModal}
