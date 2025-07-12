@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { UserType } from './Profile';
+import TextAreaInputField from './TextAreaInputField';
 
 type CommentProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> &
   UserType & {
@@ -30,8 +31,7 @@ function Comment({
         height={32}
         width={32}
       />
-      <textarea
-        className='border border-gray-100 rounded-md w-full py-2 px-4 focus:outline-purple-main focus:outline-1'
+      <TextAreaInputField
         placeholder='Add a comment...'
         rows={3}
         onChange={(e) => setComment(e.target.value)}
