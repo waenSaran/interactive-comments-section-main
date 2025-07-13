@@ -23,6 +23,7 @@ function SubmitButton({
           className
         )
       )}
+      type="button"
       onClick={onSubmit}
       {...props}
     >

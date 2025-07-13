@@ -26,6 +26,7 @@ function Button({
               className
             )
           )}
+          type="button"
           {...buttonProps}
         >
           {iconSrc && <img src={iconSrc} alt='Button icon' className='object-contain w-3' />}
@@ -36,6 +37,7 @@ function Button({
       return (
         <button
           className={twMerge(clsx('flex items-center gap-2 cursor-pointer hover:opacity-50', className))}
+          type="button"
           {...buttonProps}
         >
           {iconSrc && <img src={iconSrc} alt='Button icon' className='object-contain w-3' />}
