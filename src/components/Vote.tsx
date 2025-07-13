@@ -42,7 +42,7 @@ function Vote({ postId, score, className, ...props }: VoteProps) {
     <div
       className={twMerge(
         clsx(
-          "bg-purple-secondary px-2 py-1 flex flex-col h-fit gap-1 rounded-md",
+          "bg-purple-secondary px-2 py-1 flex flex-row-reverse h-fit gap-1 rounded-md sm:flex-col",
           className
         )
       )}

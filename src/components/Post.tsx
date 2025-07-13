@@ -176,7 +176,7 @@ function Post({
           <Vote
             postId={id}
             score={score}
-            className="flex flex-row w-fit gap-3"
+            className="w-fit gap-3"
           />
           {isCurrentUser ? (
             <AuthActionButtons
