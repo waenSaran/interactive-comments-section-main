@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Column from './Column';
 import type { PostType } from './Post';
 import mockData from '../assets/data.json';
-import { formattedDate } from '../utils/date-utils';
 import Post from './Post';
 import Comment from './Comment';
 
@@ -14,6 +13,7 @@ type PostsProps = {
 function Posts({ posts, setPosts }: PostsProps) {
   const [showReplyBox, setShowReplyBox] = useState<number>(0);
   const currentUser = mockData.currentUser;
+  const localStoragePosts = JSON.parse(localStorage.getItem('posts') || '[]');
 
   const handleOnReply = (id: number) => {
     setShowReplyBox(id);
@@ -24,16 +24,17 @@ function Posts({ posts, setPosts }: PostsProps) {
     const newComment = {
       id: Date.now(),
       content: value.replaceAll(`@${replyTo}`, ''),
-      createdAt: formattedDate(now),
+      createdAt: now.toISOString(),
       score: 0,
       user: currentUser,
       replyingTo: replyTo,
     };
-    const modifiedPost = posts.map((p) => {
+    localStoragePosts.forEach((p: PostType) => {
       if (p.id === id) p.replies?.push(newComment);
       return p;
-    });
-    setPosts(modifiedPost);
+    })
+    localStorage.setItem('posts', JSON.stringify(localStoragePosts));
+    setPosts(localStoragePosts);
     setShowReplyBox(0);
   };
 
