@@ -76,7 +76,7 @@ function Comment({
       />
       <SubmitButton className='hidden sm:flex' label={label.toUpperCase()} onSubmit={handleSubmit} />
       <div className='flex sm:hidden'>
-        <Avatar imgSrc={`/src/assets${image.png}`} />
+        <Avatar imgSrc={`../../src/assets${image.png}`} />
         <SubmitButton
           className='ml-auto'
           label={label.toUpperCase()}

@@ -3,6 +3,8 @@ import IconButton from "./IconButton";
 import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
 import type { PostType } from "./Post";
+import PlusIcon from "../assets/images/icon-plus.svg";
+import MinusIcon from "../assets/images/icon-minus.svg";
 
 type VoteProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
@@ -50,7 +52,7 @@ function Vote({ postId, score, className, ...props }: VoteProps) {
         onClick={() => handleVote("up")}
         icon={
           <img
-            src="/src/assets/images/icon-plus.svg"
+            src={PlusIcon}
             alt="Plus"
             width={12}
             height={12}
@@ -64,7 +66,7 @@ function Vote({ postId, score, className, ...props }: VoteProps) {
         onClick={() => handleVote("down")}
         icon={
           <img
-            src="/src/assets/images/icon-minus.svg"
+            src={MinusIcon}
             alt="Minus"
             width={12}
             height={12}

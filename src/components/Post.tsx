@@ -10,6 +10,9 @@ import Modal from "./Modal";
 import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
 import { renderTimestamp } from "../utils/date-utils";
+import ReplyIcon from '../assets/images/icon-reply.svg';
+import EditIcon from '../assets/images/icon-edit.svg';
+import DeleteIcon from '../assets/images/icon-delete.svg';
 
 export type PostType = {
   id: number;
@@ -35,7 +38,7 @@ function ReplyButton({ onReply, className, ...props }: ReplyButtonProps) {
     <Button
       buttonType="text"
       className={twMerge(clsx("ml-auto items-baseline", className))}
-      iconSrc="src/assets/images/icon-reply.svg"
+      iconSrc={ReplyIcon}
       onClick={onReply}
       {...props}
     >
@@ -59,14 +62,14 @@ function AuthActionButtons({
     <div className={twMerge(clsx("ml-auto flex gap-5", className))} {...props}>
       <Button
         buttonType="text"
-        iconSrc="src/assets/images/icon-delete.svg"
+        iconSrc={DeleteIcon}
         onClick={onDelete}
       >
         <span className="font-semibold text-error-main">Delete</span>
       </Button>
       <Button
         buttonType="text"
-        iconSrc="src/assets/images/icon-edit.svg"
+        iconSrc={EditIcon}
         onClick={onEdit}
       >
         <span className="font-semibold text-purple-main">Edit</span>
