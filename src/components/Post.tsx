@@ -9,6 +9,7 @@ import Column from "./Column";
 import Modal from "./Modal";
 import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
+import { renderTimestamp } from "../utils/date-utils";
 
 export type PostType = {
   id: number;
@@ -131,7 +132,7 @@ function Post({
       <div className="flex flex-col gap-3 w-full">
         <div className="header flex h-fit gap-5">
           <Profile {...user} />
-          <span className="text-gray-400 max-w-32">{createdAt}</span>
+          <span className="text-gray-400 max-w-32">{renderTimestamp(createdAt)}</span>
           {isCurrentUser ? (
             <AuthActionButtons
               onEdit={handleOnEdit}
