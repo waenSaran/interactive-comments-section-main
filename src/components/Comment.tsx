@@ -3,7 +3,6 @@ import type { UserType } from './Profile';
 import TextAreaInputField from './TextAreaInputField';
 import clsx from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import Column from './Column';
 
 type SubmitButtonProps = React.HTMLAttributes<HTMLButtonElement> & {
   label: string;

@@ -15,6 +15,7 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem("posts", JSON.stringify(posts));
+    // eslint-disable-next-line
   }, [JSON.stringify(posts)]);
 
   const handleOnComment = (val: string) => {

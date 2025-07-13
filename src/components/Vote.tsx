@@ -29,6 +29,7 @@ function Vote({ postId, score, className, ...props }: VoteProps) {
       }
     });
     localStorage.setItem("posts", JSON.stringify(posts));
+    // eslint-disable-next-line
   }, [displayScore]);
 
   const handleVote = (type: "up" | "down") => {
